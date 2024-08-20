@@ -78,6 +78,7 @@ void handle_client(int client_sock) {
         }
 
         std::string message(buffer, read_bytes);
+        std::cout << "Received message: " << message << std::endl; // Add this line for debugging
         std::string user_id = extract_user_id(message);
         std::string video_id = extract_video_id(message);
 
