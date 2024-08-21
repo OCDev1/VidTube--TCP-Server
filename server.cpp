@@ -15,7 +15,7 @@ using json = nlohmann::json;
 using namespace std;
 
 map<string, vector<string>> userHistory;  // Maps user IDs to video IDs they watched
-vector<json> videos;  // List of all videos
+vector<string> videos;  // List of all video IDs (as strings)
 
 void handle_client(int client_sock);
 std::string extract_user_id(const std::string& message);
@@ -82,15 +82,15 @@ void handle_client(int client_sock) {
         std::string user_id = extract_user_id(message);
         std::string video_id = extract_video_id(message);
 
-        // Extract video data from the message (assume the video data follows the user and video ID in JSON format)
-        size_t json_start = message.find("{");
+        // Extract video data from the message (assume the video data follows the user and video ID in JSON array format)
+        size_t json_start = message.find("[");
         if (json_start != std::string::npos) {
             std::string json_data = message.substr(json_start);
             json videoData = json::parse(json_data);
 
             videos.clear();  // Clear old data
-            for (const auto& video : videoData) {
-                videos.push_back(video);
+            for (const auto& video_id : videoData) {
+                videos.push_back(video_id.get<std::string>());  // Store each video ID as a string
             }
         }
 
@@ -161,8 +161,8 @@ std::vector<std::string> get_recommendations(const std::string& user_id, const s
     // If there aren't enough recommendations, fill with random videos
     while (recommendations.size() < 6 && recommendations.size() < videos.size()) {
         int randomIndex = rand() % videos.size();
-        std::string randomVidId = videos[randomIndex]["_id"].get<std::string>();
-        if (std::find(recommendations.begin(), recommendations.end(), randomVidId) == recommendations.end()) {
+        std::string randomVidId = videos[randomIndex];
+        if (randomVidId != video_id && std::find(recommendations.begin(), recommendations.end(), randomVidId) == recommendations.end()) {
             recommendations.push_back(randomVidId);
         }
     }
