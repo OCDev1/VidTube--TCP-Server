@@ -129,36 +129,24 @@ std::string join_recommendations(const std::vector<std::string>& recommendations
 }
 
 std::vector<std::string> get_recommendations(const std::string& user_id, const std::string& video_id) {
-    std::map<std::string, int> videoScores;  // Maps video ID to its recommendation score
+    std::vector<std::string> recommendations;
 
-    // Collect scores based on history
+    // Loop through the user history to find other users who watched the same video as the current user
     for (const auto& [other_user, watched_videos] : userHistory) {
-        if (other_user == user_id) continue;
+        if (other_user == user_id) continue; // Skip the current user
 
-        for (const auto& vid : watched_videos) {
-            if (vid != video_id) {
-                videoScores[vid]++;
+        // Check if this other user has watched the current video
+        if (std::find(watched_videos.begin(), watched_videos.end(), video_id) != watched_videos.end()) {
+            // If they have, recommend all other videos they have watched
+            for (const auto& vid : watched_videos) {
+                if (vid != video_id && std::find(recommendations.begin(), recommendations.end(), vid) == recommendations.end()) {
+                    recommendations.push_back(vid);
+                }
             }
         }
     }
 
-    // Collect the top recommendations
-    std::vector<std::pair<int, std::string>> sorted_videos;
-    for (const auto& [vid, score] : videoScores) {
-        sorted_videos.emplace_back(score, vid);
-    }
-
-    // Sort by score (descending)
-    std::sort(sorted_videos.begin(), sorted_videos.end(), [](const auto& a, const auto& b) {
-        return a.first > b.first;  // Sort by score
-    });
-
-    std::vector<std::string> recommendations;
-    for (const auto& [score, vid] : sorted_videos) {
-        recommendations.push_back(vid);
-    }
-
-    // If there aren't enough recommendations, fill with random videos
+    // Fill with random videos if fewer than 6 recommendations
     while (recommendations.size() < 6 && recommendations.size() < videos.size()) {
         int randomIndex = rand() % videos.size();
         std::string randomVidId = videos[randomIndex];
@@ -169,3 +157,4 @@ std::vector<std::string> get_recommendations(const std::string& user_id, const s
 
     return recommendations;
 }
+
