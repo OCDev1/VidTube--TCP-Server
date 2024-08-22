@@ -94,8 +94,10 @@ void handle_client(int client_sock) {
             }
         }
 
-        // Update user's history
-        userHistory[user_id].push_back(video_id);
+        if (user_id != "null") {
+            // Update user's history
+            userHistory[user_id].push_back(video_id);
+        }
 
         // Get recommendations
         std::vector<std::string> recommendations = get_recommendations(user_id, video_id);
@@ -131,23 +133,40 @@ std::string join_recommendations(const std::vector<std::string>& recommendations
 std::vector<std::string> get_recommendations(const std::string& user_id, const std::string& video_id) {
     std::vector<std::string> recommendations;
 
-    // Loop through the user history to find other users who watched the same video as the current user
-    for (const auto& [other_user, watched_videos] : userHistory) {
-        if (other_user == user_id) continue; // Skip the current user
+    // Clean up user history by removing video IDs that no longer exist in the current video list
+    for (auto& [other_user, watched_videos] : userHistory) {
+        watched_videos.erase(
+                std::remove_if(watched_videos.begin(), watched_videos.end(),
+                               [](const std::string& vid) {
+                                   return std::find(videos.begin(), videos.end(), vid) == videos.end();
+                               }),
+                watched_videos.end());
+    }
 
-        // Check if this other user has watched the current video
-        if (std::find(watched_videos.begin(), watched_videos.end(), video_id) != watched_videos.end()) {
-            // If they have, recommend all other videos they have watched
-            for (const auto& vid : watched_videos) {
-                if (vid != video_id && std::find(recommendations.begin(), recommendations.end(), vid) == recommendations.end()) {
-                    recommendations.push_back(vid);
+    if (user_id != "null") {
+        // Loop through the user history to find other users who watched the same video as the current user
+        for (const auto& [other_user, watched_videos] : userHistory) {
+            if (other_user == user_id) continue; // Skip the current user
+
+            // Check if this other user has watched the current video
+            if (std::find(watched_videos.begin(), watched_videos.end(), video_id) != watched_videos.end()) {
+                // If they have, recommend all other videos they have watched
+                for (const auto& vid : watched_videos) {
+                    // Only recommend if the video exists in the current videos list
+                    if (vid != video_id &&
+                        std::find(videos.begin(), videos.end(), vid) != videos.end() &&
+                        std::find(recommendations.begin(), recommendations.end(), vid) == recommendations.end()) {
+                        recommendations.push_back(vid);
+                    }
                 }
             }
         }
     }
 
     // Fill with random videos if fewer than 6 recommendations
-    while (recommendations.size() < 6 && recommendations.size() < videos.size()) {
+    std::cout << "videos side: " << videos.size() << std::endl; // Add this line for debugging
+    while (recommendations.size() < 6 && recommendations.size() < videos.size() - 1) {
+        std::cout << "rec: " << recommendations.size() << std::endl; // Add this line for debugging
         int randomIndex = rand() % videos.size();
         std::string randomVidId = videos[randomIndex];
         if (randomVidId != video_id && std::find(recommendations.begin(), recommendations.end(), randomVidId) == recommendations.end()) {
@@ -157,4 +176,6 @@ std::vector<std::string> get_recommendations(const std::string& user_id, const s
 
     return recommendations;
 }
+
+
 
