@@ -9,9 +9,7 @@
 #include <sstream>
 #include <map>
 #include <algorithm>
-#include <nlohmann/json.hpp>  // Include the nlohmann JSON header
 
-using json = nlohmann::json;
 using namespace std;
 
 map<string, vector<string>> userHistory;  // Maps user IDs to video IDs they watched
@@ -22,6 +20,7 @@ std::string extract_user_id(const std::string& message);
 std::string extract_video_id(const std::string& message);
 std::string join_recommendations(const std::vector<std::string>& recommendations);
 std::vector<std::string> get_recommendations(const std::string& user_id, const std::string& video_id);
+void parse_video_ids(const std::string& message);
 
 int main() {
     const int server_port = 5555;
@@ -82,17 +81,8 @@ void handle_client(int client_sock) {
         std::string user_id = extract_user_id(message);
         std::string video_id = extract_video_id(message);
 
-        // Extract video data from the message (assume the video data follows the user and video ID in JSON array format)
-        size_t json_start = message.find("[");
-        if (json_start != std::string::npos) {
-            std::string json_data = message.substr(json_start);
-            json videoData = json::parse(json_data);
-
-            videos.clear();  // Clear old data
-            for (const auto& video_id : videoData) {
-                videos.push_back(video_id.get<std::string>());  // Store each video ID as a string
-            }
-        }
+        // Extract video data from the message
+        parse_video_ids(message);
 
         if (user_id != "null") {
             // Update user's history
@@ -164,9 +154,7 @@ std::vector<std::string> get_recommendations(const std::string& user_id, const s
     }
 
     // Fill with random videos if fewer than 6 recommendations
-    std::cout << "videos side: " << videos.size() << std::endl; // Add this line for debugging
     while (recommendations.size() < 6 && recommendations.size() < videos.size() - 1) {
-        std::cout << "rec: " << recommendations.size() << std::endl; // Add this line for debugging
         int randomIndex = rand() % videos.size();
         std::string randomVidId = videos[randomIndex];
         if (randomVidId != video_id && std::find(recommendations.begin(), recommendations.end(), randomVidId) == recommendations.end()) {
@@ -177,5 +165,26 @@ std::vector<std::string> get_recommendations(const std::string& user_id, const s
     return recommendations;
 }
 
+void parse_video_ids(const std::string& message) {
+    size_t json_start = message.find("[");
+    size_t json_end = message.find("]", json_start);
 
+    if (json_start != std::string::npos && json_end != std::string::npos) {
+        std::string video_data = message.substr(json_start + 1, json_end - json_start - 1);
+        videos.clear();  // Clear old data
+
+        std::stringstream ss(video_data);
+        std::string video_id;
+
+        while (std::getline(ss, video_id, ',')) {
+            // Trim any extra whitespace or quotes
+            video_id.erase(std::remove_if(video_id.begin(), video_id.end(), [](unsigned char c){ return std::isspace(c); }), video_id.end());
+            video_id.erase(std::remove(video_id.begin(), video_id.end(), '"'), video_id.end());
+
+            if (!video_id.empty()) {
+                videos.push_back(video_id);  // Store each video ID as a string
+            }
+        }
+    }
+}
 
