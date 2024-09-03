@@ -2,6 +2,12 @@
 
 NOTE: this is the 4th and final part of the project, this is the readme for the TCP server, for the complete wiki of the whole project, go to the wiki tab.
 
+# The TCP Server:
+The server code implements a video recommendation system using C++, which integrates with the rest of the project to upgrade the user experience on VidTube by providing better content recommendations.
+
+# How does it work:
+The code processes client requests, tracks user history, and generates video recommendations based on other users' viewing habits. The recommendation algorithm identifies videos that were watched by other users who also viewed the same video as the current user and fills any gaps with random videos from the available list.
+
 # How to run this part:
 ## Build the TCP Server
 - Make sure you are in a Linux based environment.
@@ -23,3 +29,5 @@ g++ -std=c++17 -o server server.cpp
 ```
 
 ![Screenshot_22](https://github.com/user-attachments/assets/45457fb4-9509-4954-809e-de559e8f3579)
+
+That's it, the TCP server is running!
