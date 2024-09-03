@@ -1,3 +1,5 @@
+# Android App Demonstration
+
 ### Home Page
 The Home page contains many exciting features such as:
 - A video list displaying in a random order some of the videos on the platform
