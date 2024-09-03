@@ -2,10 +2,10 @@
 In this guide, we'll walk you through the process of setting up and building VidTube. We'll cover each component, including the TCP server, Node.js server and the front end.
 
 ## Prerequisites
-- Make sure you set up VidTube by following the instructions [here](https://github.com/maxshabs/vidtube-part4/wiki/How-to-setup-VidTube)
+- Make sure you set up VidTube by following the instructions [here](https://github.com/maxshabs/vidtube-part4/blob/wiki-merge-with-main/wiki/How_to_setup_VidTube.md)
 
 ## Step 1: Run the TCP Server
-- Make sure you set up the TCP server as specified [here](https://github.com/maxshabs/vidtube-part4/wiki/How-to-setup-VidTube#step-2-build-the-tcp-server)
+- Make sure you set up the TCP server as specified [here](https://github.com/maxshabs/vidtube-part4/blob/wiki-merge-with-main/wiki/How_to_setup_VidTube.md)
 - Using the command line, navigate to the folder that contains the server file and run the following command:
 ```
 ./server
