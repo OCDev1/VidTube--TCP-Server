@@ -62,12 +62,13 @@ Watch-Video Page Comment section (Comment, like, dislike, edit, delete):
   username in the top right of the screen)
 - Having second thoughts? don't worry, just click the 'cancel' button and you will be brought back to the Home page!
 
-![Screenshot_13](https://github.com/user-attachments/assets/e5086634-2948-4865-ac7a-c13406889faa)
-![Screenshot_14](https://github.com/user-attachments/assets/73748026-8dd8-404a-a427-e7b052b4c02c)
-![Screenshot_15](https://github.com/user-attachments/assets/656c326f-67c0-4243-9bd7-1f9495406553)
-![Screenshot_16](https://github.com/user-attachments/assets/a0d47f09-fc1e-4fc7-9bef-166d418565b4)
-![Screenshot_17](https://github.com/user-attachments/assets/d4bad5cf-5329-411d-b7e2-1b751d1126c4)
-![Screenshot_18](https://github.com/user-attachments/assets/46e181e8-fb1c-4538-9c93-e301f5607bc6)
+![Screenshot_11](https://github.com/user-attachments/assets/702b7a1c-ee56-4ed5-b497-7d5f9458b12f)
+![Screenshot_12](https://github.com/user-attachments/assets/c587dc0f-18ed-4f29-a4e3-7402aec38c04)
+![Screenshot_13](https://github.com/user-attachments/assets/72137a6f-f29f-40c1-8a4b-5ef6f7ef65bf)
+![Screenshot_14](https://github.com/user-attachments/assets/7053c073-5ade-4308-80bc-019daca31111)
+![Screenshot_15](https://github.com/user-attachments/assets/c0b6d18e-4598-40bf-b6b9-368550243bd5)
+![Screenshot_16](https://github.com/user-attachments/assets/1bb3d9fe-d291-452a-b009-0de27661441d)
+
 
 ### Edit Video Page
 - We believe in second chances! Here you can edit videos, and change their title, description, thumbnail or the video itself. (Note that the home page 
@@ -75,14 +76,15 @@ Watch-Video Page Comment section (Comment, like, dislike, edit, delete):
   in your profile page, just click the your username in the top right of the screen).
 - Having second thoughts? don't worry, just click the 'cancel' button and you will be brought back to the Home page!
 
-![Screenshot_31](https://github.com/user-attachments/assets/57c1aa42-f25a-43fe-a7f7-91a3ec645491)
-![Screenshot_32](https://github.com/user-attachments/assets/ccad248f-f8f6-4494-9c06-b47c98e2928d)
-![Screenshot_33](https://github.com/user-attachments/assets/57d0392b-2253-4c6e-9890-a59e24e42ff6)
-![Screenshot_34](https://github.com/user-attachments/assets/5c0a5771-0503-4392-82c2-6f34df364aee)
+![Screenshot_31](https://github.com/user-attachments/assets/7eed8e79-5e00-4bf3-91d8-dd1c6791b097)
+![Screenshot_32](https://github.com/user-attachments/assets/d3206f28-11c5-491e-a32b-1d705b3ab9fc)
+![Screenshot_33](https://github.com/user-attachments/assets/bf5ba004-2098-41d2-9cfb-c5ad4d1419b0)
+![Screenshot_34](https://github.com/user-attachments/assets/faabe981-78af-4bc5-b3eb-d8b59849e27b)
+
 
 Dark mode:
 
-![Screenshot_35](https://github.com/user-attachments/assets/d26c9737-328e-4b8f-8ffe-817433285005)
+![Screenshot_35](https://github.com/user-attachments/assets/1ceb611b-86cd-4847-8ec0-238a6424a888)
 
 ### Profile Page
 - Delete your account or edit your user details in your profile page, you can access it by clicking your name or profile picture in the side menu. in 
