@@ -22,7 +22,7 @@ g++ -std=c++17 -o server server.cpp
   ![Screenshot_20](https://github.com/user-attachments/assets/ac42f35f-4bd3-4faa-93e6-7866c1ea86a3)
 
 ## Run the TCP Server:
-- Make sure you set up the TCP server as specified [here](https://github.com/maxshabs/vidtube-part4/wiki/How-to-setup-VidTube#step-2-build-the-tcp-server)
+- Make sure you set up the TCP server as specified [here](https://github.com/OCDev1/VidTube--TCP-Server/blob/main/wiki/How_to_setup_VidTube.md)
 - Using the command line, navigate to the folder that contains the server file and run the following command:
 ```
 ./server
